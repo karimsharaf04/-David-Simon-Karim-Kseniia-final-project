@@ -7,8 +7,6 @@ import moveit_commander
 from geometry_msgs.msg import Twist
 from geometry_msgs.msg import Vector3
 
-
-
 class ArmMotion(object):
 
 
@@ -16,8 +14,8 @@ class ArmMotion(object):
         # Start rospy node.
         rospy.init_node("arm_motion")
 
-        # Publish movement
-        self.twist_pub = rospy.Publisher("/cmd_vel", Twist, queue_size = 10)
+        # Set a subscriber to twist
+        rospy.Subscriber("/cmd_vel", Twist, self.xyz_callback)
 
         # the interface to the group of joints making up the turtlebot3
         # openmanipulator arm
@@ -39,6 +37,9 @@ class ArmMotion(object):
         self.move_group_gripper.stop()
 
         rospy.sleep(3)
+
+    def xyz_callback(self, data):
+        print("Make arm movements based on twist message")
 
     def run(self):
         # Keep the program alive.
