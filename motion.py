@@ -59,12 +59,16 @@ class ArmMotion(object):
         # Find joint angle q2
         tmp = (self.l_1 ** 2) + (self.l_2 ** 2) - sq_dist
         cos_alpha = tmp / (2 * self.l_1 * self.l_2)
+        if cos_alpha > 1 or cos_alpha < 1:
+            print("Cosine of alpha out of bounds")
+            cos_alpha = clamp(cos_alpha, -1, 1)
 
         alpha = math.acos(cos_alpha)
         q_2 = math.pi - alpha
 
         # Find joint angle q1
         tmp_2 = math.atan(y/x)
+        # TODO: make sure atan is valid
         tmp_3 = (self.l_2 * math.sin(q_2)) / (self.l_1 + (self.l_2 * math.cos(q_2)))
         tmp_3 = math.atan(tmp_3)
 
@@ -78,6 +82,10 @@ class ArmMotion(object):
     def run(self):
         # Keep the program alive.
         rospy.spin()
+
+def clamp(n, smallest, largest):
+        """ Helper function to clamp a value to a range """
+        return max(smallest, min(n, largest))
 
 if __name__ == '__main__':
     # Declare a node and run it.
