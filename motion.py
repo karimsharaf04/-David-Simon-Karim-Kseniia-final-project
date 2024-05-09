@@ -51,6 +51,7 @@ class ArmMotion(object):
         arm based on x, y, z input in a Twist message """
         print("Make arm movements based on twist message")
         x, y, z = data.linear.x, data.linear.y, data.linear.z
+        print("Got x y z: ", x, y, z)
 
         # Squared distance
         sq_dist = x**2 + y**2
