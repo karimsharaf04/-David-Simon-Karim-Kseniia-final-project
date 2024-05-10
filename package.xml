@@ -1,0 +1,23 @@
+<package format="2">
+  <name>final_project</name>
+  <version>1.0.0</version>
+  <description>The final_project package for hand detection and gesture recognition using ROS and depth sensors.</description>
+  <maintainer email="ksharaf@uchicago.edu">Khaled Sharaf</maintainer>
+  <license>MIT</license>
+
+  <!-- Dependencies for building and running the ROS package -->
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>roscpp</depend>
+  <depend>rospy</depend>
+  <depend>std_msgs</depend>
+  <depend>sensor_msgs</depend> <!-- Commonly used for projects that involve sensor data -->
+  <depend>cv_bridge</depend> <!-- Commonly used if integrating with OpenCV -->
+  <depend>image_transport</depend> <!-- For image transport within ROS -->
+
+  <!-- Dependency for using Intel RealSense cameras, if applicable -->
+  <exec_depend>realsense2_camera</exec_depend>
+
+  <export>
+    <!-- No specific exports required; adjust if needed for specific deployment or tooling requirements -->
+  </export>
+</package>
