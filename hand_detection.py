@@ -37,14 +37,16 @@ model.load_state_dict(torch.load('/home/ksharaf/catkin_ws/src/-David-Simon-Karim
 model.eval()
 
 # Define image preprocessing function
-def preprocess_image(image):
+def preprocess_image(image, x, y, width, height):
     transform = transforms.Compose([
         transforms.ToPILImage(),
-        transforms.Resize((128, 128)),
+        transforms.Resize((128, 128)),  # Resize the image to what the model expects
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
     ])
-    return transform(image).unsqueeze(0)  # Add batch dimension
+    # Crop the image to the bounding box around the hand
+    cropped_image = image[y:y+height, x:x+width]
+    return transform(cropped_image).unsqueeze(0)  # Add batch dimension
 
 # Init MediaPipe 
 mp_hands = mp.solutions.hands
@@ -79,7 +81,7 @@ class HandTracker:
 
     def run(self):
         try:
-            cv2.namedWindow("Hand Tracking", cv2.WINDOW_AUTOSIZE)  # Create an OpenCV window
+            cv2.namedWindow("Hand Tracking", cv2.WINDOW_AUTOSIZE)  # OpenCV window
             while not rospy.is_shutdown():
                 frames = pipeline.wait_for_frames()
                 aligned_frames = align.process(frames)
@@ -93,42 +95,50 @@ class HandTracker:
                 results = hands.process(color_image_rgb)
                 if results.multi_hand_landmarks:
                     for hand_landmarks in results.multi_hand_landmarks:
-                        mp_draw.draw_landmarks(color_image, hand_landmarks, mp_hands.HAND_CONNECTIONS)  # Draw hand landmarks
-                        x, y = self.calculate_hand_center(hand_landmarks)
-                        z = self.calculate_hand_depth(x, y, aligned_frames.get_depth_frame())
-                        self.publish_hand_center(x, y, z)
-                        
-                        # Prepare the image for the model
-                        hand_image = preprocess_image(color_image_rgb)
+                        # Draw the hand landmarks
+                        mp_draw.draw_landmarks(color_image, hand_landmarks, mp_hands.HAND_CONNECTIONS)
+
+                        # Calculate bounding box
+                        bbox = self.calculate_hand_bbox(hand_landmarks)
+                        x, y, w, h = bbox
+
+                        # Draw bounding box around the detected hand
+                        cv2.rectangle(color_image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
+                        # Crop and preprocess image for model input
+                        hand_image = preprocess_image(color_image_rgb, x, y, w, h)
                         with torch.no_grad():
                             output = model(hand_image)
                             _, predicted = torch.max(output, 1)
-                            is_open = True if predicted.item() == 1 else False
-                        self.publish_hand_state(is_open)
+                            is_open = predicted.item() == 1
 
-                        # Show hand state on the image
+                        # Display hand state
+                        self.publish_hand_state(is_open)
                         cv2.putText(color_image, "State: {}".format("Open" if is_open else "Closed"), (10, 30),
                                     cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
 
-                cv2.imshow("Hand Tracking", cv2.cvtColor(color_image, cv2.COLOR_RGB2BGR))  # Display the image
-                if cv2.waitKey(1) & 0xFF == ord('q'):  # Press 'q' to quit
+                # Display the modified image
+                cv2.imshow("Hand Tracking", cv2.cvtColor(color_image, cv2.COLOR_RGB2BGR))
+                if cv2.waitKey(1) & 0xFF == ord('q'):
                     break
-
         finally:
             pipeline.stop()
-            cv2.destroyAllWindows()  # Close the window
+            cv2.destroyAllWindows()
 
 
 
-    def calculate_hand_center(self, hand_landmarks):
-        x_coords = [landmark.x for landmark in hand_landmarks.landmark]
-        y_coords = [landmark.y for landmark in hand_landmarks.landmark]
-        x_mean = np.mean(x_coords)
-        y_mean = np.mean(y_coords)
 
-        x_center = x_mean * 640
-        y_center = y_mean * 480  
-        return x_center, y_center
+    def calculate_hand_bbox(self, hand_landmarks):
+        if not hand_landmarks:
+            return 0, 0, 0, 0
+        x_coords = [lm.x for lm in hand_landmarks.landmark]
+        y_coords = [lm.y for lm in hand_landmarks.landmark]
+        x_min, x_max = min(x_coords), max(x_coords)
+        y_min, y_max = min(y_coords), max(y_coords)
+        x_min, x_max = int(x_min * 640), int(x_max * 640)
+        y_min, y_max = int(y_min * 480), int(y_max * 480)
+        return x_min, y_min, x_max - x_min, y_max - y_min
+
 
     def calculate_hand_depth(self, x, y, depth_frame):
         if not depth_frame:
