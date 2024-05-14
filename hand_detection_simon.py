@@ -149,6 +149,7 @@ class HandTracker:
                             hand_landmarks = results.multi_hand_landmarks[0]
                             hand_image = preprocess_image(color_image_rgb, x, y, w, h, hand_landmarks)
                             hand_image = Image.fromarray(hand_image)
+                            device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
                             hand_image_final = transform(hand_image).unsqueeze(0).to(device)
 
                             with torch.no_grad():
