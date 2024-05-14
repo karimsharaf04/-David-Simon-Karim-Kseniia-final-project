@@ -109,6 +109,11 @@ class HandTracker:
         self.hand_state_pub.publish(is_open)
 
     def run(self):
+        transform = transforms.Compose([
+            transforms.Resize((128, 128)),
+            transforms.ToTensor(),
+            transforms.Normalize(mean=[0.5], std=[0.5])
+        ])
         try:
             cv2.namedWindow("Hand Tracking", cv2.WINDOW_AUTOSIZE)  # OpenCV window
             while not rospy.is_shutdown():
@@ -135,15 +140,21 @@ class HandTracker:
                         cv2.rectangle(color_image_rgb, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
                         # Crop and preprocess image for model input
-                        
-                        hand_landmarks = results.multi_hand_landmarks[0]
-                        hand_image = preprocess_image(color_image_rgb, x, y, w, h, hand_landmarks)
+                        is_open = False
+                        if results.multi_hand_landmarks:
+                            print("Hand detected, processing gesture")
 
-                        hand_image = cv2.resize(hand_image, (128, 128)) # resize to 128x128
-                        with torch.no_grad():
-                            output = model(hand_image)
-                            _, predicted = torch.max(output, 1)
-                            is_open = predicted.item() == 1
+
+                            
+                            hand_landmarks = results.multi_hand_landmarks[0]
+                            hand_image = preprocess_image(color_image_rgb, x, y, w, h, hand_landmarks)
+                            hand_image = Image.fromarray(hand_image)
+                            hand_image_final = transform(hand_image).unsqueeze(0).to(device)
+
+                            with torch.no_grad():
+                                output = model(hand_image_final)
+                                predicted = torch.argmax(output, dim=1).item()
+                                is_open = predicted == 1
 
                         # Display hand state
                         self.publish_hand_state(is_open)
