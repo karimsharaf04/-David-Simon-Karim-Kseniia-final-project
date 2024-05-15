@@ -142,14 +142,16 @@ class HandTracker:
                 if results.multi_hand_landmarks:
 
                     for hand_landmarks in results.multi_hand_landmarks:
-                        x_center, y_center = self.calculate_hand_center(hand_landmarks)
-                        z_center = self.calculate_hand_depth(x_center, y_center, aligned_frames.get_depth_frame())
+                       
                         # Draw the hand landmarks
                         mp_draw.draw_landmarks(color_image_rgb, hand_landmarks, mp_hands.HAND_CONNECTIONS)
 
                         # Calculate bounding box
                         bbox = self.calculate_hand_bbox(hand_landmarks)
                         x, y, w, h = bbox
+                        x_center = x + w / 2
+                        y_center = y + h / 2
+                        z_center = self.calculate_hand_depth(x_center, y_center, aligned_frames.get_depth_frame())
 
                         # Draw bounding box around the detected hand
                         cv2.rectangle(color_image_rgb, (x, y), (x + w, y + h), (0, 255, 0), 2)
