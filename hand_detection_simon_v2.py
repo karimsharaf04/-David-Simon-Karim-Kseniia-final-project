@@ -108,6 +108,7 @@ class HandTracker:
         rospy.init_node('hand_tracker', anonymous=True)
         self.hand_pub = rospy.Publisher("hand_center", PointStamped, queue_size=10)
         self.hand_state_pub = rospy.Publisher("hand_open", Bool, queue_size=10)
+        self.pixels_per_meter = None  # To store the conversion factor
 
     def publish_hand_center(self, x, y, z):
         point = PointStamped()
@@ -116,6 +117,24 @@ class HandTracker:
         point.point = Point(x, y, z)
         self.hand_pub.publish(point)
 
+    def detect_ar_tag_and_calibrate(self, image, ar_tag_size=0.165):
+        """
+        Detects an AR tag and calibrates the pixels per meter conversion factor.
+        :param image: Input image in which to detect the AR tag.
+        :param ar_tag_size: The real-world size of the AR tag in meters (default is 16.5 cm).
+        """
+        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        aruco_dict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_4X4_50)
+        parameters = cv2.aruco.DetectorParameters_create()
+        corners, _, _ = cv2.aruco.detectMarkers(gray, aruco_dict, parameters=parameters)
+
+        if corners:
+            # Assuming one AR tag for simplicity
+            top_left, top_right, bottom_right, bottom_left = corners[0][0]
+            tag_width_pixels = np.linalg.norm(top_right - top_left)
+            self.pixels_per_meter = tag_width_pixels / ar_tag_size
+            print(f"Calibrated Pixels per Meter: {self.pixels_per_meter}")
+            
     def publish_hand_state(self, is_open):
         self.hand_state_pub.publish(is_open)
 
@@ -138,6 +157,9 @@ class HandTracker:
                 color_image = np.asanyarray(color_frame.get_data())
                 color_image_rgb_raw = cv2.cvtColor(color_image, cv2.COLOR_BGR2RGB)
                 color_image_rgb = color_image_rgb_raw
+
+                if self.pixels_per_meter is None:
+                    self.detect_ar_tag_and_calibrate(color_image_rgb_raw)
                 results = hands.process(color_image_rgb)
                 if results.multi_hand_landmarks:
 
