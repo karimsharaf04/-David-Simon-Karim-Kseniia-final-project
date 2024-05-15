@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import matplotlib.pyplot as plt
 import rospy
 import cv2
 import numpy as np
@@ -56,11 +57,11 @@ def get_grayscale(image):
 
     final_image = cv2.copyMakeBorder(resized_image, top, bottom, left, right, cv2.BORDER_CONSTANT, value=[0, 0, 0])
 
-    # plt.figure(figsize=(3, 3))
-    # plt.imshow(final_image, cmap='gray')
-    # plt.title("Processed Image")
-    # plt.axis('off')
-    # plt.show()
+   # plt.figure(figsize=(3, 3))
+   # plt.imshow(final_image, cmap='gray')
+   # plt.title("Processed Image")
+   # plt.axis('off')
+   # plt.show()
 
     return final_image
 
@@ -127,6 +128,7 @@ class HandTracker:
         try:
             cv2.namedWindow("Hand Tracking", cv2.WINDOW_AUTOSIZE)  # OpenCV window
             while not rospy.is_shutdown():
+
                 frames = pipeline.wait_for_frames()
                 aligned_frames = align.process(frames)
                 color_frame = aligned_frames.get_color_frame()
@@ -138,7 +140,10 @@ class HandTracker:
                 color_image_rgb = color_image_rgb_raw
                 results = hands.process(color_image_rgb)
                 if results.multi_hand_landmarks:
+
                     for hand_landmarks in results.multi_hand_landmarks:
+                        x_center, y_center = self.calculate_hand_center(hand_landmarks)
+                        z_center = self.calculate_hand_depth(x_center, y_center, aligned_frames.get_depth_frame())
                         # Draw the hand landmarks
                         mp_draw.draw_landmarks(color_image_rgb, hand_landmarks, mp_hands.HAND_CONNECTIONS)
 
@@ -157,7 +162,8 @@ class HandTracker:
 
                             
                             hand_landmarks = results.multi_hand_landmarks[0]
-                            hand_image = preprocess_image(color_image_rgb_raw, hand_landmarks)
+                            color_image_rgb_2 = cv2.cvtColor(color_image, cv2.COLOR_BGR2RGB)
+                            hand_image = preprocess_image(color_image_rgb_2, hand_landmarks)
                             hand_image_pil = Image.fromarray(hand_image)
                             device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
                             hand_image_tensor = transform(hand_image_pil).unsqueeze(0).to(device)
@@ -169,8 +175,10 @@ class HandTracker:
 
                         # Display hand state
                         self.publish_hand_state(is_open)
-                        cv2.putText(color_image_rgb, "State: {}".format("Open" if is_open else "Closed"), (10, 30),
+                        cv2.putText(color_image_rgb, "State: {}, Coords: {},{},{}".format("Open" if is_open else "Closed",x_center, y_center, z_center), (10, 30),
                                     cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
+                      #  cv2.putText(color_image_rgb, "State: {}".format("Open" if is_open else "Closed"), (10, 30),
+                                 #   cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
 
                 # Convert back to BGR for display
                 color_image_bgr = cv2.cvtColor(color_image_rgb, cv2.COLOR_RGB2BGR)
