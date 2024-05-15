@@ -109,7 +109,8 @@ class HandTracker:
         self.hand_pub = rospy.Publisher("hand_center", PointStamped, queue_size=10)
         self.hand_state_pub = rospy.Publisher("hand_open", Bool, queue_size=10)
         self.pixels_per_meter = None  # To store the conversion factor
-
+        self.distance_from_floor = None
+    
     def publish_hand_center(self, x, y, z):
         point = PointStamped()
         point.header.stamp = rospy.Time.now()
@@ -159,6 +160,10 @@ class HandTracker:
 
                 if self.pixels_per_meter is None:
                     self.detect_ar_tag_and_calibrate(color_image_rgb_raw)
+
+                if self.distance_from_floor is None:
+                    self.distance_from_floor = self.calculate_hand_depth(640/2, 480/2, aligned_frames.get_depth_frame())
+                    print("Distance from floor: ", self.distance_from_floor)
                 results = hands.process(color_image_rgb)
                 if results.multi_hand_landmarks:
 
@@ -172,8 +177,9 @@ class HandTracker:
                         x, y, w, h = bbox
                         x_center = x + w / 2
                         y_center = y + h / 2
-                        z_center = self.calculate_hand_depth(x_center, y_center, aligned_frames.get_depth_frame())
-                        self.publish_hand_center(x_center, y_center, z_center)
+                        dist_from_cam = self.calculate_hand_depth(x_center, y_center, aligned_frames.get_depth_frame())
+                        hand_dist_from_floor = self.distance_from_floor - dist_from_cam
+                        self.publish_hand_center(x_center, y_center, hand_dist_from_floor)
                         # Draw bounding box around the detected hand
                         cv2.rectangle(color_image_rgb, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
@@ -198,7 +204,7 @@ class HandTracker:
 
                         # Display hand state
                         self.publish_hand_state(is_open)
-                        cv2.putText(color_image_rgb, "State: {}, Coords: {},{},{}, PpM: {}".format("Open" if is_open else "Closed",x_center, y_center, z_center,self.pixels_per_meter), (10, 30),
+                        cv2.putText(color_image_rgb, "State: {}, Coords: {},{},{}, PpM: {}".format("Open" if is_open else "Closed",x_center, y_center, hand_dist_from_floor, self.pixels_per_meter), (10, 30),
                                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
                       #  cv2.putText(color_image_rgb, "State: {}".format("Open" if is_open else "Closed"), (10, 30),
                                  #   cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
