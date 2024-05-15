@@ -152,7 +152,7 @@ class HandTracker:
                         x_center = x + w / 2
                         y_center = y + h / 2
                         z_center = self.calculate_hand_depth(x_center, y_center, aligned_frames.get_depth_frame())
-
+                        self.publish_hand_center(x_center, y_center, z_center)
                         # Draw bounding box around the detected hand
                         cv2.rectangle(color_image_rgb, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
