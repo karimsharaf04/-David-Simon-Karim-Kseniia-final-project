@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 
 import rospy
 import math
@@ -6,6 +7,14 @@ import moveit_commander
 # msgs needed for /cmd_vel.
 from geometry_msgs.msg import Twist
 from geometry_msgs.msg import Vector3
+
+def make_twist(x,y,z,rx,ry,rz):
+    l = Vector3(x,y,z)
+    r = Vector3(x,y,z)
+
+    ret = Twist(l, r)
+
+    return ret
 
 class ArmMotion(object):
 
@@ -74,13 +83,21 @@ class ArmMotion(object):
 
         q_1 = tmp_2 - tmp_3
 
+        q_1 = q_1
+        q_2 = q_2
+
         self.q_1 = q_1
         self.q_2 = q_2
+        
+
 
         print("Found q_1, q_2: ", self.q_1, self.q_2)
 
+        self.move_group_arm.go([0, -q_1, q_2, 0], wait=True)
+
     def run(self):
         # Keep the program alive.
+        self.xyz_callback(make_twist(25, 30, 0, 0, 0, 0,))
         rospy.spin()
 
 def clamp(n, smallest, largest):
