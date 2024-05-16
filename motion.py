@@ -83,21 +83,23 @@ class ArmMotion(object):
 
         q_1 = tmp_2 - tmp_3
 
-        q_1 = q_1
+        q_1 = q_1 
         q_2 = q_2
 
+        q_2 -= math.pi / 2
+        q_2 = clamp(q_2, -0.9, 1.3788)
+        q_1 = clamp(-q_1 + math.pi / 2, -1.55,math.pi / 2 - 0.1)
         self.q_1 = q_1
         self.q_2 = q_2
         
 
-
         print("Found q_1, q_2: ", self.q_1, self.q_2)
 
-        self.move_group_arm.go([0, -q_1, q_2, 0], wait=True)
+        self.move_group_arm.go([0, q_1, q_2, 0], wait=True)
 
     def run(self):
         # Keep the program alive.
-        self.xyz_callback(make_twist(25, 30, 0, 0, 0, 0,))
+        self.xyz_callback(make_twist(20, 10, 0, 0, 0, 0,))
         rospy.spin()
 
 def clamp(n, smallest, largest):
