@@ -181,9 +181,18 @@ class HandTracker:
                         x, y, w, h = bbox
                         x_center = x + w / 2
                         y_center = y + h / 2
+
+                        # convert to center
+                        new_x = x_center- 640/2
+                        new_y = 480/2 - y_center
+
+                        # convert pixel to meter
+                        x_center_final = new_x / self.pixels_per_meter
+                        y_center_final = new_y / self.pixels_per_meter
+
                         dist_from_cam = self.calculate_hand_depth(x_center, y_center, aligned_frames.get_depth_frame())
                         hand_dist_from_floor = self.distance_from_floor - dist_from_cam
-                        self.publish_hand_center(x_center, y_center, hand_dist_from_floor)
+                        self.publish_hand_center(x_center_final, y_center_final, hand_dist_from_floor)
                         # Draw bounding box around the detected hand
                         cv2.rectangle(color_image_rgb, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
@@ -208,7 +217,7 @@ class HandTracker:
 
                         # Display hand state
                         self.publish_hand_state(is_open)
-                        cv2.putText(color_image_rgb, "State: {}, Coords: {},{},{}, PpM: {}".format("Open" if is_open else "Closed",x_center, y_center, hand_dist_from_floor, self.pixels_per_meter), (10, 30),
+                        cv2.putText(color_image_rgb, "State: {}, Coords: {},{},{}, PpM: {}".format("Open" if is_open else "Closed",x_center_final, y_center_final, hand_dist_from_floor, self.pixels_per_meter), (10, 30),
                                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
                       #  cv2.putText(color_image_rgb, "State: {}".format("Open" if is_open else "Closed"), (10, 30),
                                  #   cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
