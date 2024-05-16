@@ -125,12 +125,16 @@ class HandTracker:
         :param ar_tag_size: The real-world size of the AR tag in meters (default is 16.5 cm).
         """
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+
+
         aruco_dict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_4X4_50)
-        parameters = cv2.aruco.DetectorParameters_create()
-        corners, _, _ = cv2.aruco.detectMarkers(gray, aruco_dict, parameters=parameters)
+        parameters = cv2.aruco.DetectorParameters()
+        detector = cv2.aruco.ArucoDetector(aruco_dict, parameters)
+        corners, _, _ = detector.detectMarkers(gray)
 
         if corners:
-            top_left, top_right, bottom_right, bottom_left = corners[0][0]
+            top_left, top_right, _, _ = corners[0][0]
             tag_width_pixels = np.linalg.norm(top_right - top_left)
             self.pixels_per_meter = tag_width_pixels / ar_tag_size
             print(f"Calibrated Pixels per Meter: {self.pixels_per_meter}")
