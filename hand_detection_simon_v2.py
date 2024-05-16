@@ -217,7 +217,7 @@ class HandTracker:
 
                         # Display hand state
                         self.publish_hand_state(is_open)
-                        cv2.putText(color_image_rgb, "Hand: {}, Coords: {:.2f},{:.2f},{:.2f}, PpM: {:.2f}".format("Open" if is_open else "Closed",x_center_final, y_center_final, hand_dist_from_floor, self.pixels_per_meter), (10, 30),
+                        cv2.putText(color_image_rgb, "Hand: {}, Coords (m): {:.4f},{:.4f},{:.4f}".format("Open" if is_open else "Closed",x_center_final, y_center_final, hand_dist_from_floor), (10, 30),
                                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
                       #  cv2.putText(color_image_rgb, "State: {}".format("Open" if is_open else "Closed"), (10, 30),
                                  #   cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
