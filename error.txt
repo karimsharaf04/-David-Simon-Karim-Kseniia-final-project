@@ -1,0 +1,1099 @@
+You can start planning now!
+
+[ INFO] [1716242904.892618845]: Ready to take commands for planning group arm.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1716242905.097558   21520 gl_context_egl.cc:85] Successfully initialized EGL. Major : 1 Minor: 5
+I0000 00:00:1716242905.121823   21644 gl_context.cc:357] GL version: 3.2 (OpenGL ES 3.2 NVIDIA 550.54.15), renderer: NVIDIA RTX A2000/PCIe/SSE2
+INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+[ INFO] [1716242905.205368044]: Ready to take commands for planning group gripper.
+[ INFO] [1716242905.266517479]: Combined planning and execution request received for MoveGroup action. Forwarding to planning and execution pipeline.
+[ INFO] [1716242905.266577345]: Planning attempt 1 of at most 1
+[ INFO] [1716242905.267872711]: Planner configuration 'arm' will use planner 'geometric::RRTConnect'. Additional configuration parameters will be set when the planner is constructed.
+[ INFO] [1716242905.268160130]: arm/arm: Starting planning with 1 states already in datastructure
+[ INFO] [1716242905.278975176]: arm/arm: Created 5 states (2 start + 3 goal)
+[ INFO] [1716242905.278990537]: Solution found in 0.010891 seconds
+[ INFO] [1716242905.282941169]: SimpleSetup: Path simplification took 0.003905 seconds and changed from 4 to 2 states
+[ INFO] [1716242905.369020362]: Controller 'arm_controller' successfully finished
+Calibrated Pixels per Meter: 1155.1617246685605
+Distance from floor:  0.5570000410079956
+[ INFO] [1716242906.369311688]: Didn't receive robot state (joint angles) with recent timestamp within 0.027049 seconds.
+Check clock synchronization if your are running ROS across multiple machines!
+[ WARN] [1716242906.369346155]: Failed to receive current joint state
+[ INFO] [1716242906.369368194]: Completed trajectory execution with status SUCCEEDED ...
+[ INFO] [1716242906.379095825]: Received event 'stop'
+[ INFO] [1716242909.453021456]: Combined planning and execution request received for MoveGroup action. Forwarding to planning and execution pipeline.
+[ INFO] [1716242909.453083799]: Planning attempt 1 of at most 1
+[ INFO] [1716242909.454027204]: Planner configuration 'gripper' will use planner 'geometric::RRTConnect'. Additional configuration parameters will be set when the planner is constructed.
+[ INFO] [1716242909.454139160]: gripper/gripper: Starting planning with 1 states already in datastructure
+[ INFO] [1716242909.464596879]: gripper/gripper: Created 4 states (2 start + 2 goal)
+[ INFO] [1716242909.464619529]: Solution found in 0.010504 seconds
+[ INFO] [1716242909.466286772]: SimpleSetup: Path simplification took 0.001641 seconds and changed from 3 to 2 states
+[ INFO] [1716242909.521093629]: Controller 'gripper_controller' successfully finished
+[ INFO] [1716242909.726736023]: Completed trajectory execution with status SUCCEEDED ...
+[ INFO] [1716242909.731282078]: Received event 'stop'
+Hand detected, processing gesture
+Moving arm to: q1: 0, q2: 1.5707963267948966, q3: 0.38589731471079386, q4: -1.5707963267948966
+cuda
+[ERROR] [1716242910.030042]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242910.054350]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242910.092115]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+[ INFO] [1716242910.098474927]: Combined planning and execution request received for MoveGroup action. Forwarding to planning and execution pipeline.
+[ INFO] [1716242910.098524011]: Planning attempt 1 of at most 1
+[ INFO] [1716242910.099356867]: Planner configuration 'arm' will use planner 'geometric::RRTConnect'. Additional configuration parameters will be set when the planner is constructed.
+[ INFO] [1716242910.099498067]: arm/arm: Starting planning with 1 states already in datastructure
+Hand detected, processing gesture
+cuda
+[ INFO] [1716242910.114906371]: Constraint satisfied:: Joint name: 'joint1', actual value: -0.000055, desired value: 0.000000, tolerance_above: 0.000100, tolerance_below: 0.000100
+[ INFO] [1716242910.115006608]: Constraint satisfied:: Joint name: 'joint2', actual value: 1.570788, desired value: 1.570796, tolerance_above: 0.000100, tolerance_below: 0.000100
+[ INFO] [1716242910.115028105]: Constraint satisfied:: Joint name: 'joint3', actual value: 0.385845, desired value: 0.385897, tolerance_above: 0.000100, tolerance_below: 0.000100
+[ INFO] [1716242910.115047169]: Constraint satisfied:: Joint name: 'joint4', actual value: -1.570765, desired value: -1.570796, tolerance_above: 0.000100, tolerance_below: 0.000100
+[ INFO] [1716242910.115177845]: Found a contact between 'base_link' (type 'Robot link') and 'gripper_link' (type 'Robot link'), which constitutes a collision. Contact information is not stored.
+[ INFO] [1716242910.115200189]: Collision checking is considered complete (collision was found and 0 contacts are stored)
+[ERROR] [1716242910.116437]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+[ERROR] [1716242910.119760728]: arm/arm: Unable to sample any valid states for goal tree
+[ INFO] [1716242910.119799041]: arm/arm: Created 1 states (1 start + 0 goal)
+[ INFO] [1716242910.119815240]: No solution found after 0.020361 seconds
+[ WARN] [1716242910.119832617]: Timed out
+[ INFO] [1716242910.119852014]: Unable to solve the planning problem
+[ INFO] [1716242910.120068960]: ABORTED: TIMED_OUT
+[ INFO] [1716242910.120184300]: Received event 'stop'
+[WARN] [1716242910.120194]: Motion planning failed. Check for potential issues with the target joint values or robot state.
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242910.148404]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242910.188536]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242910.214596]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Moving arm to: q1: 0, q2: 0.0970841404195637, q3: 0.4788212623871531, q4: -0.0970841404195637
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242910.248456]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+[ INFO] [1716242910.267353936]: Combined planning and execution request received for MoveGroup action. Forwarding to planning and execution pipeline.
+[ INFO] [1716242910.267401533]: Planning attempt 1 of at most 1
+[ INFO] [1716242910.268293902]: Planner configuration 'arm' will use planner 'geometric::RRTConnect'. Additional configuration parameters will be set when the planner is constructed.
+[ INFO] [1716242910.268430755]: arm/arm: Starting planning with 1 states already in datastructure
+Hand detected, processing gesture
+[ INFO] [1716242910.279370391]: arm/arm: Created 5 states (2 start + 3 goal)
+[ INFO] [1716242910.279411688]: Solution found in 0.011022 seconds
+cuda
+[ INFO] [1716242910.282619106]: SimpleSetup: Path simplification took 0.003134 seconds and changed from 4 to 2 states
+[ERROR] [1716242910.283115]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242910.317870]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+[ INFO] [1716242910.336903169]: Controller 'arm_controller' successfully finished
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242910.348419]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242910.384780]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242910.414766]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242910.447443]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242910.480815]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242910.514790]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242910.548011]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242910.581320]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242910.614783]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242910.649063]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242910.680835]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242910.715727]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242910.748550]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242910.782538]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242910.814415]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242910.851442]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242910.881411]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242910.915687]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242910.951807]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242910.981141]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242911.019694]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242911.049648]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242911.086743]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242911.115618]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242911.149691]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242911.192877]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242911.216076]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242911.248634]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242911.283616]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242911.315633]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+[ INFO] [1716242911.337212302]: Didn't receive robot state (joint angles) with recent timestamp within 0.0500362 seconds.
+Check clock synchronization if your are running ROS across multiple machines!
+[ WARN] [1716242911.337261309]: Failed to receive current joint state
+[ INFO] [1716242911.337271621]: Completed trajectory execution with status SUCCEEDED ...
+Hand detected, processing gesture
+cuda
+[ INFO] [1716242911.346457276]: Received event 'stop'
+[ERROR] [1716242911.348980]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242911.388676]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242911.415262]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+Moving arm to: q1: 0, q2: -0.15555227884548462, q3: 0.4568338182078376, q4: 0.15555227884548462
+[ERROR] [1716242911.448614]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242911.483187]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ INFO] [1716242911.515127068]: Combined planning and execution request received for MoveGroup action. Forwarding to planning and execution pipeline.
+[ INFO] [1716242911.515183682]: Planning attempt 1 of at most 1
+[ERROR] [1716242911.515692]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+[ INFO] [1716242911.516169837]: Planner configuration 'arm' will use planner 'geometric::RRTConnect'. Additional configuration parameters will be set when the planner is constructed.
+[ INFO] [1716242911.516278392]: arm/arm: Starting planning with 1 states already in datastructure
+[ INFO] [1716242911.526982942]: arm/arm: Created 5 states (2 start + 3 goal)
+[ INFO] [1716242911.526991596]: Solution found in 0.010744 seconds
+[ INFO] [1716242911.528945013]: SimpleSetup: Path simplification took 0.001944 seconds and changed from 4 to 2 states
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242911.552741]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242911.582059]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+[ERROR] [1716242911.587176349]: 
+Invalid Trajectory: start point deviates from current robot state more than 0.01
+joint 'joint3': expected: 0.225495, current: 0.250039
+[ INFO] [1716242911.587358159]: ABORTED: CONTROL_FAILED
+[WARN] [1716242911.587469]: Motion planning failed. Check for potential issues with the target joint values or robot state.
+[ INFO] [1716242911.587544322]: Received event 'stop'
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242911.615096]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242911.648403]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242911.681749]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Moving arm to: q1: 0, q2: -0.3576613138688336, q3: 0.4309982274663104, q4: 0.3576613138688336
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242911.715860]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ INFO] [1716242911.759039864]: Combined planning and execution request received for MoveGroup action. Forwarding to planning and execution pipeline.
+[ INFO] [1716242911.759087176]: Planning attempt 1 of at most 1
+[ERROR] [1716242911.759561]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+[ INFO] [1716242911.760110196]: Planner configuration 'arm' will use planner 'geometric::RRTConnect'. Additional configuration parameters will be set when the planner is constructed.
+[ INFO] [1716242911.760263745]: arm/arm: Starting planning with 1 states already in datastructure
+[ INFO] [1716242911.771333414]: arm/arm: Created 5 states (3 start + 2 goal)
+[ INFO] [1716242911.771372963]: Solution found in 0.011159 seconds
+[ INFO] [1716242911.775694188]: SimpleSetup: Path simplification took 0.004289 seconds and changed from 4 to 2 states
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242911.794172]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242911.819519]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242911.847450821]: 
+Invalid Trajectory: start point deviates from current robot state more than 0.01
+joint 'joint3': expected: 0.33134, current: 0.365087
+[ INFO] [1716242911.847713699]: ABORTED: CONTROL_FAILED
+[ INFO] [1716242911.847829496]: Received event 'stop'
+[WARN] [1716242911.847907]: Motion planning failed. Check for potential issues with the target joint values or robot state.
+[ERROR] [1716242911.850163]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242911.883551]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242911.915816]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+Moving arm to: q1: 0, q2: -0.5513492436710945, q3: 0.4007128412633118, q4: 0.5513492436710945
+[ERROR] [1716242911.956915]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242911.983734]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+[ INFO] [1716242912.015126020]: Combined planning and execution request received for MoveGroup action. Forwarding to planning and execution pipeline.
+[ INFO] [1716242912.015156791]: Planning attempt 1 of at most 1
+[ INFO] [1716242912.015957227]: Planner configuration 'arm' will use planner 'geometric::RRTConnect'. Additional configuration parameters will be set when the planner is constructed.
+[ INFO] [1716242912.016042670]: arm/arm: Starting planning with 1 states already in datastructure
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242912.023448]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+[ INFO] [1716242912.026479260]: arm/arm: Created 4 states (2 start + 2 goal)
+[ INFO] [1716242912.026503848]: Solution found in 0.010484 seconds
+[ INFO] [1716242912.027376340]: SimpleSetup: Path simplification took 0.000857 seconds and changed from 3 to 2 states
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242912.056081]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+[ERROR] [1716242912.080236317]: 
+Invalid Trajectory: start point deviates from current robot state more than 0.01
+joint 'joint3': expected: 0.435651, current: 0.461728
+[ INFO] [1716242912.080552580]: ABORTED: CONTROL_FAILED
+Hand detected, processing gesture
+[WARN] [1716242912.080738]: Motion planning failed. Check for potential issues with the target joint values or robot state.
+[ INFO] [1716242912.080844030]: Received event 'stop'
+cuda
+[ERROR] [1716242912.085479]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242912.120406]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242912.151803]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+Moving arm to: q1: 0, q2: -0.719773606838368, q3: 0.3523165657400391, q4: 0.719773606838368
+cuda
+[ERROR] [1716242912.185201]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242912.229652]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242912.254786]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+[ INFO] [1716242912.273222982]: Combined planning and execution request received for MoveGroup action. Forwarding to planning and execution pipeline.
+[ INFO] [1716242912.273259102]: Planning attempt 1 of at most 1
+[ INFO] [1716242912.274102480]: Planner configuration 'arm' will use planner 'geometric::RRTConnect'. Additional configuration parameters will be set when the planner is constructed.
+[ INFO] [1716242912.274208249]: arm/arm: Starting planning with 1 states already in datastructure
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242912.288572]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+[ INFO] [1716242912.294820714]: arm/arm: Created 4 states (2 start + 2 goal)
+[ INFO] [1716242912.294844799]: Solution found in 0.020665 seconds
+[ INFO] [1716242912.296498677]: SimpleSetup: Path simplification took 0.001636 seconds and changed from 3 to 2 states
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242912.324315]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242912.353924]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+[ERROR] [1716242912.357441977]: 
+Invalid Trajectory: start point deviates from current robot state more than 0.01
+joint 'joint3': expected: 0.48934, current: 0.501612
+[ INFO] [1716242912.357637595]: ABORTED: CONTROL_FAILED
+[WARN] [1716242912.357719]: Motion planning failed. Check for potential issues with the target joint values or robot state.
+[ INFO] [1716242912.357750118]: Received event 'stop'
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242912.387199]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242912.435796]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+Moving arm to: q1: 0, q2: -0.8545130471778419, q3: 0.30578966016385484, q4: 0.8545130471778419
+[ERROR] [1716242912.461429]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242912.489245]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242912.520916]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+[ INFO] [1716242912.528351043]: Combined planning and execution request received for MoveGroup action. Forwarding to planning and execution pipeline.
+[ INFO] [1716242912.528411594]: Planning attempt 1 of at most 1
+[ INFO] [1716242912.529329438]: Planner configuration 'arm' will use planner 'geometric::RRTConnect'. Additional configuration parameters will be set when the planner is constructed.
+[ INFO] [1716242912.529423621]: arm/arm: Starting planning with 1 states already in datastructure
+[ INFO] [1716242912.540225873]: arm/arm: Created 4 states (2 start + 2 goal)
+[ INFO] [1716242912.540250171]: Solution found in 0.010853 seconds
+[ INFO] [1716242912.542176446]: SimpleSetup: Path simplification took 0.001911 seconds and changed from 3 to 2 states
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242912.554768]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242912.588680]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+[ INFO] [1716242912.589214651]: Controller 'arm_controller' successfully finished
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242912.624517]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242912.655449]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242912.690943]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242912.721971]: bad callback: <bound method ArmControl.hand_state_callback of <__main__.ArmControl object at 0x7fe36d3026a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/ksharaf/catkin_ws/src/final_project/arm_motion.py", line 88, in hand_state_callback
+    if is_open != self.gripper_open:
+AttributeError: 'ArmControl' object has no attribute 'gripper_open'
+
+Hand detected, processing gesture
+cuda
+Hand detected, processing gesture
+cuda
+[ INFO] [1716242912.814585264]: Completed trajectory execution with status SUCCEEDED ...
+[ INFO] [1716242912.819459090]: Received event 'stop'
+Hand detected, processing gesture
+cuda
+Hand detected, processing gesture
+cuda
+Hand detected, processing gesture
+cuda
+Moving arm to: q1: 0, q2: -1.0145160541523035, q3: 0.26560658065730924, q4: 1.0145160541523035
+Hand detected, processing gesture
+cuda
+Hand detected, processing gesture
+cuda
+Hand detected, processing gesture
+cuda
+Hand detected, processing gesture
+cuda
+[ INFO] [1716242913.022429531]: Combined planning and execution request received for MoveGroup action. Forwarding to planning and execution pipeline.
+[ INFO] [1716242913.022476556]: Planning attempt 1 of at most 1
+[ INFO] [1716242913.024067562]: Planner configuration 'arm' will use planner 'geometric::RRTConnect'. Additional configuration parameters will be set when the planner is constructed.
+[ INFO] [1716242913.024213493]: arm/arm: Starting planning with 1 states already in datastructure
+[ INFO] [1716242913.034997420]: arm/arm: Created 5 states (2 start + 3 goal)
+[ INFO] [1716242913.035010377]: Solution found in 0.010841 seconds
+[ INFO] [1716242913.038116027]: SimpleSetup: Path simplification took 0.003088 seconds and changed from 4 to 2 states
+Hand detected, processing gesture
+cuda
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242913.117799885]: 
+Invalid Trajectory: start point deviates from current robot state more than 0.01
+joint 'joint2': expected: 0.0460194, current: 0.0306796
+[ INFO] [1716242913.118328943]: ABORTED: CONTROL_FAILED
+[WARN] [1716242913.118473]: Motion planning failed. Check for potential issues with the target joint values or robot state.
+[ INFO] [1716242913.118646418]: Received event 'stop'
+Hand detected, processing gesture
+cuda
+Hand detected, processing gesture
+cuda
+Hand detected, processing gesture
+cuda
+Moving arm to: q1: 0, q2: -1.1239919278567898, q3: 0.22053661555915913, q4: 1.1239919278567898
+Hand detected, processing gesture
+cuda
+Hand detected, processing gesture
+[ INFO] [1716242913.257941052]: Combined planning and execution request received for MoveGroup action. Forwarding to planning and execution pipeline.
+[ INFO] [1716242913.257977270]: Planning attempt 1 of at most 1
+cuda
+[ INFO] [1716242913.258885026]: Planner configuration 'arm' will use planner 'geometric::RRTConnect'. Additional configuration parameters will be set when the planner is constructed.
+[ INFO] [1716242913.259000959]: arm/arm: Starting planning with 1 states already in datastructure
+[ INFO] [1716242913.269805414]: arm/arm: Created 5 states (2 start + 3 goal)
+[ INFO] [1716242913.269851986]: Solution found in 0.010886 seconds
+[ INFO] [1716242913.274173215]: SimpleSetup: Path simplification took 0.004273 seconds and changed from 4 to 2 states
+Hand detected, processing gesture
+cuda
+Hand detected, processing gesture
+cuda
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242913.359308723]: 
+Invalid Trajectory: start point deviates from current robot state more than 0.01
+joint 'joint2': expected: -0.00613592, current: -0.0230097
+[ INFO] [1716242913.359585251]: ABORTED: CONTROL_FAILED
+[ INFO] [1716242913.359899353]: Received event 'stop'
+[WARN] [1716242913.359970]: Motion planning failed. Check for potential issues with the target joint values or robot state.
+Hand detected, processing gesture
+cuda
+Hand detected, processing gesture
+cuda
+Moving arm to: q1: 0, q2: -1.2250464453684642, q3: 0.16120777730859184, q4: 1.2250464453684642
+Hand detected, processing gesture
+cuda
+Hand detected, processing gesture
+cuda
+Hand detected, processing gesture
+cuda
+[ INFO] [1716242913.529850254]: Combined planning and execution request received for MoveGroup action. Forwarding to planning and execution pipeline.
+[ INFO] [1716242913.529882352]: Planning attempt 1 of at most 1
+[ INFO] [1716242913.530740899]: Planner configuration 'arm' will use planner 'geometric::RRTConnect'. Additional configuration parameters will be set when the planner is constructed.
+[ INFO] [1716242913.530850208]: arm/arm: Starting planning with 1 states already in datastructure
+[ INFO] [1716242913.541297767]: arm/arm: Created 4 states (2 start + 2 goal)
+[ INFO] [1716242913.541309199]: Solution found in 0.010500 seconds
+[ INFO] [1716242913.543049520]: SimpleSetup: Path simplification took 0.001713 seconds and changed from 3 to 2 states
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242913.594266261]: 
+Invalid Trajectory: start point deviates from current robot state more than 0.01
+joint 'joint2': expected: -0.0659612, current: -0.079767
+[ INFO] [1716242913.594576709]: ABORTED: CONTROL_FAILED
+[WARN] [1716242913.594708]: Motion planning failed. Check for potential issues with the target joint values or robot state.
+[ INFO] [1716242913.594945624]: Received event 'stop'
+Hand detected, processing gesture
+cuda
+Hand detected, processing gesture
+cuda
+Hand detected, processing gesture
+cuda
+Moving arm to: q1: 0, q2: -1.3513645295151264, q3: 0.11513831173608632, q4: 1.3513645295151264
+Hand detected, processing gesture
+cuda
+Hand detected, processing gesture
+cuda
+Hand detected, processing gesture
+cuda
+[ INFO] [1716242913.765078370]: Combined planning and execution request received for MoveGroup action. Forwarding to planning and execution pipeline.
+[ INFO] [1716242913.765130713]: Planning attempt 1 of at most 1
+[ INFO] [1716242913.765983159]: Planner configuration 'arm' will use planner 'geometric::RRTConnect'. Additional configuration parameters will be set when the planner is constructed.
+[ INFO] [1716242913.766087773]: arm/arm: Starting planning with 1 states already in datastructure
+[ INFO] [1716242913.776768741]: arm/arm: Created 5 states (3 start + 2 goal)
+[ INFO] [1716242913.776791724]: Solution found in 0.010732 seconds
+[ INFO] [1716242913.781396867]: SimpleSetup: Path simplification took 0.004572 seconds and changed from 4 to 2 states
+Hand detected, processing gesture
+cuda
+Hand detected, processing gesture
+cuda
+[ERROR] [1716242913.860061390]: 
+Invalid Trajectory: start point deviates from current robot state more than 0.01
+joint 'joint2': expected: -0.128854, current: -0.158
+[ INFO] [1716242913.860515265]: ABORTED: CONTROL_FAILED
+[WARN] [1716242913.860660]: Motion planning failed. Check for potential issues with the target joint values or robot state.
+[ INFO] [1716242913.860751225]: Received event 'stop'
+Hand detected, processing gesture
+cuda
+Hand detected, processing gesture
+cuda
+Hand detected, processing gesture
+cuda
+Moving arm to: q1: 0, q2: -1.4608404032196127, q3: 0.08967959567185572, q4: 1.4608404032196127
+Hand detected, processing gesture
+cuda
+Hand detected, processing gesture
+cuda
+Hand detected, processing gesture
+cuda
+Hand detected, processing gesture
+cuda
+[ INFO] [1716242914.070612876]: Combined planning and execution request received for MoveGroup action. Forwarding to planning and execution pipeline.
+[ INFO] [1716242914.070663407]: Planning attempt 1 of at most 1
+[ INFO] [1716242914.071472636]: Planner configuration 'arm' will use planner 'geometric::RRTConnect'. Additional configuration parameters will be set when the planner is constructed.
+[ INFO] [1716242914.071605118]: arm/arm: Starting planning with 1 states already in datastructure
+[ INFO] [1716242914.082203870]: arm/arm: Created 4 states (2 start + 2 goal)
+[ INFO] [1716242914.082230515]: Solution found in 0.010667 seconds
+[ INFO] [1716242914.085381378]: SimpleSetup: Path simplification took 0.003136 seconds and changed from 3 to 2 states
+Hand detected, processing gesture
+cuda
