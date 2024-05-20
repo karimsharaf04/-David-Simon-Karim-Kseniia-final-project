@@ -1,0 +1,15 @@
+<launch>
+    <!-- Launch the OpenMANIPULATOR Bringup -->
+    <include file="$(find turtlebot3_manipulation_bringup)/launch/turtlebot3_manipulation_bringup.launch"/>
+
+    <!-- Launch the MoveIt configuration for the robot arm -->
+    <include file="$(find turtlebot3_manipulation_moveit_config)/launch/move_group.launch"/>
+
+    <!-- Hand Detection Node -->
+    <node name="hand_detection" pkg="final_project" type="hand_detection_simon_v2.py" output="screen">
+    </node>
+
+    <!-- Arm Motion Node -->
+    <node name="arm_motion" pkg="final_project" type="arm_motion.py" output="screen">
+    </node>
+</launch>

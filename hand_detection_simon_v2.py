@@ -16,7 +16,7 @@ import torch.optim as optim
 import os
 import rospkg
 mp_drawing = mp.solutions.drawing_utils
-
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 class SimpleCNN(nn.Module):
     def __init__(self):
         super(SimpleCNN, self).__init__()
@@ -36,7 +36,7 @@ class SimpleCNN(nn.Module):
 
 # Load the model
 model = SimpleCNN()
-model.load_state_dict(torch.load(os.path.join(rospkg.RosPack().get_path('final_project'), 'simon_model_v1.pth'), map_location=torch.device('cpu')))
+model.load_state_dict(torch.load(os.path.join(rospkg.RosPack().get_path('final_project'), 'simon_model_v1.pth'), map_location=torch.device("cpu")))
 model.eval()
 
 def get_grayscale(image):
@@ -207,9 +207,10 @@ class HandTracker:
                             color_image_rgb_2 = cv2.cvtColor(color_image, cv2.COLOR_BGR2RGB)
                             hand_image = preprocess_image(color_image_rgb_2, hand_landmarks)
                             hand_image_pil = Image.fromarray(hand_image)
-                            device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-                            hand_image_tensor = transform(hand_image_pil).unsqueeze(0).to(device)
-
+                            
+                            hand_image_tensor = transform(hand_image_pil).unsqueeze(0).to("cpu")
+                            print(DEVICE)
+                  
                             with torch.no_grad():
                                 output = model(hand_image_tensor)
                                 predicted = torch.argmax(output, dim=1).item()

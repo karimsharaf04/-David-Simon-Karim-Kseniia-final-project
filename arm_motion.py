@@ -46,36 +46,38 @@ class ArmControl(object):
         """Callback function for controlling arm based on hand position"""
         x, y, z = data.point.x, data.point.y, data.point.z
 
-        # Calculate angles and distances
-        q1 = 0  # Base swivel remains fixed
+        # Base swivel remains fixed (Joint 1)
+        q1 = 0  
 
         # Base tilt (Joint 2)
         if z <= 0:
-            q2 = -1.55  # Tilt all the way down
+            q2 = math.radians(-103)  # Tilt all the way down
         elif z >= 0.4:
-            q2 = 1.3788  # Tilt all the way up
+            q2 = math.radians(90)  # Tilt all the way up
         else:
-            q2 = (z / 0.4) * 1.3788 - 1.55  # Linear interpolation
+            q2 = math.radians(-103) + (z / 0.4) * (math.radians(90) - math.radians(-103))  # Linear interpolation
 
         # Clamp the joint angle to its limits
         q2 = self.clamp(q2, math.radians(-103), math.radians(90))
 
         # Elbow joint (Joint 3)
         distance_xy = math.sqrt(x**2 + y**2)
-        q3 = self.clamp(distance_xy / 0.5, math.radians(-53), math.radians(79))  # Assuming 0.5m is the max reach
+        q3 = (distance_xy / 0.5) * math.radians(79)  # Assuming 0.5m is the max reach
+        q3 = self.clamp(q3, math.radians(-53), math.radians(79))
 
         # Wrist adjustment (Joint 4)
         q4 = -q2  # Keep the claw perpendicular to the ground
-
-        # Clamp the wrist adjustment to its limits
         q4 = self.clamp(q4, math.radians(-100), math.radians(117))
 
         print(f"Moving arm to: q1: {q1}, q2: {q2}, q3: {q3}, q4: {q4}")
 
         # Directly set the joint positions
         self.move_group_arm.set_joint_value_target([q1, q2, q3, q4])
-        self.move_group_arm.go(wait=True)
+        success = self.move_group_arm.go(wait=True)
         self.move_group_arm.stop()
+
+        if not success:
+            rospy.logwarn("Motion planning failed. Check for potential issues with the target joint values or robot state.")
 
         # Adding sleep to prevent abort control failed
         rospy.sleep(0.1)
@@ -103,6 +105,3 @@ class ArmControl(object):
 if __name__ == '__main__':
     node = ArmControl()
     node.run()
-
-
-
