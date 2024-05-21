@@ -7,6 +7,8 @@ from std_msgs.msg import Bool
 from geometry_msgs.msg import PointStamped
 import moveit_commander
 import time
+FORCED_FRAME_RATE = 0.5
+
 ONE_RAD = 2*math.pi
 JOINT_1_MAX_MOVEMENT = ONE_RAD * 0.05
 JOINT_2_MAX_MOVEMENT = ONE_RAD * 0.1
@@ -26,45 +28,32 @@ JOINT_3_MAX = math.pi /2  # at 180, fully extended
 JOINT_3_MIN_M = 0.0
 JOINT_3_MAX_M = 0.5
 
-JOINT_4_MIN = -math.pi 
-JOINT_4_MAX = math.pi 
-
 class ArmControl(object):
     def __init__(self):
-        # Initialize the ROS node
         rospy.init_node("arm_control")
 
-        # Initialize MoveIt!
+        # Initialize arm
         moveit_commander.roscpp_initialize(sys.argv)
-
-        
-
-        # Interface to the group of joints making up the TurtleBot3 open manipulator arm
         self.move_group_arm = moveit_commander.MoveGroupCommander("arm")
-
-        # Interface to the group of joints making up the TurtleBot3 open manipulator gripper
         self.move_group_gripper = moveit_commander.MoveGroupCommander("gripper")
 
-        # Reset arm position to a normal position
+        # Reset arm position
         arm_joint_positions = [0, 0, 0, 0]
-
         self.move_group_arm.go(arm_joint_positions, wait=True)
         self.move_group_arm.stop()
-
-        rospy.sleep(3)  # Give the arm time to perform the action before moving the gripper
+        rospy.sleep(3) 
 
         # Reset gripper position
         gripper_joint_open = [0, 0]
         self.move_group_gripper.go(gripper_joint_open, wait=True)
         self.move_group_gripper.stop()
-
-        
-        self.last_action = time.time()
-
-        # Initialize the gripper state
         self.gripper_open = True
         rospy.sleep(3)
-        # Set subscribers for hand position and state
+
+        # get current time
+        self.last_action = time.time()
+        
+        # Set subscribers
         rospy.Subscriber("hand_center", PointStamped, self.hand_position_callback)
         rospy.Subscriber("hand_open", Bool, self.hand_state_callback)
 
@@ -137,7 +126,9 @@ class ArmControl(object):
         """Callback function for controlling arm based on hand position"""
         x, y, z = data.point.x, data.point.y, data.point.z
         now = time.time()
-        if now - self.last_action < 0.5:
+
+        # only publish an action every 0.5 seconds
+        if now - self.last_action < FORCED_FRAME_RATE:
             return
         self.last_action = now
         curr_j1, curr_j2, curr_j3, curr_j4 = self.move_group_arm.get_current_joint_values()
@@ -153,19 +144,12 @@ class ArmControl(object):
 
         new_pos = [q1, q2, q3, q4]
         self.move_group_arm.set_joint_value_target(new_pos)
-        # plan_success, trag_msg, planning_time, err_code = self.move_group_arm.plan()
-        # if not plan_success:
-        #     print("error in planning, skipping execution")
-        #     #rospy.logwarn(f"Motion planning failed in {planning_time} sec. Check for potential issues with the target joint values or robot state. Error code: {err_code}, {trag_msg}")
-        #     rospy.sleep(0.1)
-        #     return
         success = self.move_group_arm.go(wait=True)
         self.move_group_arm.stop()
 
         if not success:
             rospy.logwarn("Motion planning failed during execution. Check for potential issues with the target joint values or robot state.")
 
-        # Adding sleep to prevent abort control failed
         rospy.sleep(0.1)
 
     def hand_state_callback(self, data):
