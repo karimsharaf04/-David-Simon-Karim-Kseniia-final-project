@@ -142,7 +142,6 @@ class HandTracker:
                         # Crop and preprocess image for model input
                         is_open = False
                         if results.multi_hand_landmarks:
-                            print("Hand detected, processing gesture")
 
 
                             

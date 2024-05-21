@@ -15,7 +15,7 @@ import torch.nn as nn
 import torch.optim as optim
 import os
 import rospkg
-FRAME_RATE = 1
+FRAME_RATE = 30
 mp_drawing = mp.solutions.drawing_utils
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 class SimpleCNN(nn.Module):
@@ -200,7 +200,6 @@ class HandTracker:
                         # Crop and preprocess image for model input
                         is_open = False
                         if results.multi_hand_landmarks:
-                            print("Hand detected, processing gesture")
 
 
                             
@@ -210,7 +209,6 @@ class HandTracker:
                             hand_image_pil = Image.fromarray(hand_image)
                             
                             hand_image_tensor = transform(hand_image_pil).unsqueeze(0).to("cpu")
-                            print(DEVICE)
                   
                             with torch.no_grad():
                                 output = model(hand_image_tensor)
