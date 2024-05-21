@@ -15,6 +15,7 @@ import torch.nn as nn
 import torch.optim as optim
 import os
 import rospkg
+FRAME_RATE = 1
 mp_drawing = mp.solutions.drawing_utils
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 class SimpleCNN(nn.Module):
@@ -92,8 +93,8 @@ mp_draw = mp.solutions.drawing_utils
 # Init RealSense 
 pipeline = rs.pipeline()
 config = rs.config()
-config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
-config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
+config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, FRAME_RATE)
+config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, FRAME_RATE)
 pipeline.start(config)
 
 # Set white balance
