@@ -57,14 +57,14 @@ class ArmControl(object):
         rospy.Subscriber("hand_center", PointStamped, self.hand_position_callback)
         rospy.Subscriber("hand_open", Bool, self.hand_state_callback)
 
-    def _map_distance_to_radians(z_in_meters, joint_min_m, joint_max_m, joint_max):
-        if  z_in_meters <= joint_min_m: # down
+    def _map_distance_to_radians(distance_m, joint_min_m, joint_max_m, joint_max):
+        if  distance_m <= joint_min_m: # down
             return math.pi / 2
-        elif  z_in_meters >= joint_max_m: # up
+        elif  distance_m >= joint_max_m: # up
             return 0
         else:
             # interpolation
-            return (1 - (z_in_meters / joint_max_m)) * (joint_max)
+            return (1 - (distance_m / joint_max_m)) * (joint_max)
     
 
     # TODO these could be combined in a single function, but keep the separate for testing
