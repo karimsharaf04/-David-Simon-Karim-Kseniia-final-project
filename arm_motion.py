@@ -83,8 +83,8 @@ class ArmControl(object):
         final_target_rad = target_rad
         if target_rad > JOINT_1_MAX:
             final_target_rad = JOINT_1_MAX
-        elif target_rad < -JOINT_1_MIN:
-            final_target_rad = -JOINT_1_MIN
+        elif target_rad < JOINT_1_MIN:
+            final_target_rad = JOINT_1_MIN
         
         print(f"CURRENT LOCATION j1_rad {j1_rad:.4f} xy ({x:.4f},{y:.4f}), hand_rad: {hand_rad:.4f}, rad_delta: {rad_delta:.4f}, rad_delta_clamped: {rad_delta_clamped:.4f}, target_rad {target_rad:.4f} final_target_rad: {final_target_rad:.4f}")
         return final_target_rad        
