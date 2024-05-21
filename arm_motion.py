@@ -70,13 +70,6 @@ class ArmControl(object):
         rospy.Subscriber("hand_center", PointStamped, self.hand_position_callback)
         rospy.Subscriber("hand_open", Bool, self.hand_state_callback)
 
-    # def _get_theta(self, vector_a, vector_b):
-    #     dot_product = vector_a[0] * vector_b[0] + vector_a[1] * vector_b[1]
-   
-    #     magnitude_a = math.sqrt(vector_a[0]**2 + vector_a[1]**2)
-    #     magnitude_b = math.sqrt(vector_b[0]**2 + vector_b[1]**2)
-    #     return math.acos(dot_product / max(0.00001, (magnitude_a * magnitude_b)))
-    
     
     def _get_joint_1(self, x, y):
         hand_rad = math.atan2(y, x) # get radians of hand position
@@ -93,7 +86,7 @@ class ArmControl(object):
         elif target_rad < -JOINT_1_MIN:
             final_target_rad = -JOINT_1_MIN
         
-        print(f"CURRENT LOCATION j1_rad {j1_rad:.4f} xy ({x:.4f},{y:.4f}), hand_rad: {hand_rad:.4f}, rad_delta_clamped: {rad_delta_clamped:.4f}, target_rad {target_rad:.4f} final_target_rad: {final_target_rad:.4f}")
+        print(f"CURRENT LOCATION j1_rad {j1_rad:.4f} xy ({x:.4f},{y:.4f}), hand_rad: {hand_rad:.4f}, rad_delta: {rad_delta:.4f}, rad_delta_clamped: {rad_delta_clamped:.4f}, target_rad {target_rad:.4f} final_target_rad: {final_target_rad:.4f}")
         return final_target_rad        
 
     
