@@ -16,14 +16,18 @@ JOINT_4_MAX_MOVEMENT = ONE_RAD * 0.1
 JOINT_1_MIN = -math.pi 
 JOINT_1_MAX = math.pi 
 
-JOINT_2_MIN = -103
-JOINT_2_MAX = 90
+JOINT_2_MIN = 0 # up
+JOINT_2_MAX = math.pi / 2 # down
+JOINT_2_MIN_M = 0.0
+JOINT_2_MAX_M = 0.7
 
-JOINT_3_MIN = -53
-JOINT_3_MAX = 79
+JOINT_3_MIN = 0 # at 90
+JOINT_3_MAX = math.pi /2  # at 180, fully extended
+JOINT_3_MIN_M = 0.0
+JOINT_3_MAX_M = 0.5
 
-JOINT_4_MIN = -100
-JOINT_4_MAX = 117
+JOINT_4_MIN = -math.pi 
+JOINT_4_MAX = math.pi 
 
 class ArmControl(object):
     def __init__(self):
@@ -43,12 +47,6 @@ class ArmControl(object):
 
         # Reset arm position to a normal position
         arm_joint_positions = [0, 0, 0, 0]
-        self.current_joint_positions = {
-            "joint1": (0, 0),
-            "joint2": 0,
-            "joint3": 0,
-            "joint4": 0
-        }
 
         self.move_group_arm.go(arm_joint_positions, wait=True)
         self.move_group_arm.stop()
@@ -70,8 +68,23 @@ class ArmControl(object):
         rospy.Subscriber("hand_center", PointStamped, self.hand_position_callback)
         rospy.Subscriber("hand_open", Bool, self.hand_state_callback)
 
+    def _map_distance_to_radians(z_in_meters, joint_min_m, joint_max_m, joint_max):
+        if  z_in_meters <= joint_min_m: # down
+            return math.pi / 2
+        elif  z_in_meters >= joint_max_m: # up
+            return 0
+        else:
+            # interpolation
+            return (1 - (z_in_meters / joint_max_m)) * (joint_max)
     
-    def _get_joint_1(self, x, y):
+
+    # TODO these could be combined in a single function, but keep the separate for testing
+        
+
+    def _get_joint_1(self, x, y): # swivel
+        """
+        The swivel servo, mapping the x,y hand position to a 0 - 180 degree range (0 - pi radians)
+        """
         hand_rad = math.atan2(y, x) # get radians of hand position
         j1_rad, _, _, _ = self.move_group_arm.get_current_joint_values() # get current joint values (swivel)
         rad_delta = hand_rad - j1_rad # get the difference between the hand and current joint values
@@ -86,35 +99,38 @@ class ArmControl(object):
         elif target_rad < JOINT_1_MIN:
             final_target_rad = JOINT_1_MIN
         
-        print(f"CURRENT LOCATION j1_rad {j1_rad:.4f} xy ({x:.4f},{y:.4f}), hand_rad: {hand_rad:.4f}, rad_delta: {rad_delta:.4f}, rad_delta_clamped: {rad_delta_clamped:.4f}, target_rad {target_rad:.4f} final_target_rad: {final_target_rad:.4f}")
+        print(f"[JOINT 1] j1_rad {j1_rad:.4f} xy ({x:.4f},{y:.4f}), hand_rad: {hand_rad:.4f}, rad_delta: {rad_delta:.4f}, rad_delta_clamped: {rad_delta_clamped:.4f}, target_rad {target_rad:.4f} final_target_rad: {final_target_rad:.4f}")
         return final_target_rad        
 
-    
-    def _get_joint_2(self, z):
-        # # Base tilt (Joint 2)
-        # if z <= 0:
-        #     q2 = math.radians(-103)  # Tilt all the way down
-        # elif z >= 0.4:
-        #     q2 = math.radians(90)  # Tilt all the way up
-        # else:
-        #     q2 = math.radians(-103) + (z / 0.4) * (math.radians(90) - math.radians(-103))  # Linear interpolation
 
-        # # Clamp the joint angle to its limits
-        # q2 = self.clamp(q2, math.radians(-103), math.radians(90))
-        return 0
+    def _get_joint_2(self, z): 
+        """
+        The tilt servo, mapping the distance from the ground (meters) to a 0 - 90 degree range (0 - pi/2 radians)
+        """
+        hand_rad = self._map_distance_to_radians(z, JOINT_2_MIN_M, JOINT_2_MAX_M, JOINT_2_MAX)
+        _, j2_rad, _, _ = self.move_group_arm.get_current_joint_values()
+        rad_delta = hand_rad - j2_rad
+        rad_delta_clamped = self.clamp(rad_delta, -JOINT_2_MAX_MOVEMENT, JOINT_2_MAX_MOVEMENT)
+        target_rad = j2_rad + rad_delta_clamped
+        print(f"[JOINT 2] j2_rad {j2_rad:.4f} z {z:.4f}, hand_rad: {hand_rad:.4f}, rad_delta: {rad_delta:.4f}, rad_delta_clamped: {rad_delta_clamped:.4f}, target_rad {target_rad:.4f} ")
+        return target_rad
     
-    def _get_joint_3(self, x, y):
-        # Elbow joint (Joint 3)
-        # distance_xy = math.sqrt(x**2 + y**2)
-        # q3 = (distance_xy / 0.5) * math.radians(79)  # Assuming 0.5m is the max reach
-        # q3 = self.clamp(q3, math.radians(-53), math.radians(79))
-        return 0
+    def _get_joint_3(self, x, y): 
+        """
+        The elbow joint, mapping the distance from the origin to a 0 - 90 degree range (0 - pi/2 radians)
+        """
+        distance_from_origin = abs(math.sqrt(x**2 + y**2))
+        hand_rad = self._map_distance_to_radians(distance_from_origin, JOINT_3_MIN, JOINT_3_MAX, JOINT_3_MAX)
+        _, _, j3_rad, _ = self.move_group_arm.get_current_joint_values()
+        rad_delta = hand_rad - j3_rad
+        rad_delta_clamped = self.clamp(rad_delta, -JOINT_3_MAX_MOVEMENT, JOINT_3_MAX_MOVEMENT)
+        target_rad = j3_rad + rad_delta_clamped
+        print(f"[JOINT 3] j3_rad {j3_rad:.4f} xy ({x:.4f},{y:.4f}), hand_rad: {hand_rad:.4f}, rad_delta: {rad_delta:.4f}, rad_delta_clamped: {rad_delta_clamped:.4f}, target_rad {target_rad:.4f} ")
+        return target_rad
     
-    def _get_joint_4(self, z):
-        # Wrist adjustment (Joint 4)
-        # q4 = -q2  # Keep the claw perpendicular to the ground
-        # q4 = self.clamp(q4, math.radians(-100), math.radians(117))
-        return 0
+    def _get_joint_4(self, q2):
+        # We dont need this? (inverse of the tilt, but the elbow makes this more complicated)
+        return -q2
     
 
     def hand_position_callback(self, data):
@@ -131,7 +147,7 @@ class ArmControl(object):
         q2, q3, q4 = 0, 0, 0
         # q2 = self._get_joint_2(z)
         # q3 = self._get_joint_3(x, y)
-        # q4 = self._get_joint_4(z)
+        # q4 = self._get_joint_4(q2)
 
         print(f"Moving arm to: q1: {q1}, q2: {q2}, q3: {q3}, q4: {q4}")
 
