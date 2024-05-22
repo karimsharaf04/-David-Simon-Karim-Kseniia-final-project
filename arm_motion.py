@@ -10,7 +10,7 @@ import time
 FORCED_FRAME_RATE = 0.5
 
 ONE_RAD = 2*math.pi
-JOINT_1_MAX_MOVEMENT = ONE_RAD * 0.05
+JOINT_1_MAX_MOVEMENT = ONE_RAD * 0.01
 JOINT_2_MAX_MOVEMENT = ONE_RAD * 0.1
 JOINT_3_MAX_MOVEMENT = ONE_RAD * 0.1
 JOINT_4_MAX_MOVEMENT = ONE_RAD * 0.1
@@ -18,13 +18,13 @@ JOINT_4_MAX_MOVEMENT = ONE_RAD * 0.1
 JOINT_1_MIN = -math.pi 
 JOINT_1_MAX = math.pi 
 
-JOINT_2_MIN = 0 # up
+JOINT_2_MIN = 0.2 # up
 JOINT_2_MAX = math.pi / 2 # down
 JOINT_2_MIN_M = 0.0
-JOINT_2_MAX_M = 0.7
+JOINT_2_MAX_M = 0.5
 
 JOINT_3_MIN = 0 # at 90
-JOINT_3_MAX = math.pi /2  # at 180, fully extended
+JOINT_3_MAX = 0.9  # at 180, fully extended
 JOINT_3_MIN_M = 0.0
 JOINT_3_MAX_M = 0.5
 
@@ -57,7 +57,7 @@ class ArmControl(object):
         rospy.Subscriber("hand_center", PointStamped, self.hand_position_callback)
         rospy.Subscriber("hand_open", Bool, self.hand_state_callback)
 
-    def _map_distance_to_radians(distance_m, joint_min_m, joint_max_m, joint_max):
+    def _map_distance_to_radians(self, distance_m, joint_min_m, joint_max_m, joint_max):
         if  distance_m <= joint_min_m: # down
             return math.pi / 2
         elif  distance_m >= joint_max_m: # up
@@ -74,7 +74,14 @@ class ArmControl(object):
         """
         The swivel servo, mapping the x,y hand position to a 0 - 180 degree range (0 - pi radians)
         """
-        hand_rad = math.atan2(y, x) # get radians of hand position
+        hand_rad = math.atan2(y, x)  # get radians of hand position
+        hand_rad = hand_rad - math.pi / 2
+        if (hand_rad < 0):
+            hand_rad += 2 * math.pi
+        
+        if (hand_rad > JOINT_1_MAX):
+            hand_rad = hand_rad - 2 * math.pi
+        
         j1_rad, _, _, _ = self.move_group_arm.get_current_joint_values() # get current joint values (swivel)
         rad_delta = hand_rad - j1_rad # get the difference between the hand and current joint values
         rad_delta_clamped = self.clamp(rad_delta, -JOINT_1_MAX_MOVEMENT, JOINT_1_MAX_MOVEMENT) # clamp the difference to the max movement allowed
@@ -88,7 +95,8 @@ class ArmControl(object):
         elif target_rad < JOINT_1_MIN:
             final_target_rad = JOINT_1_MIN
         
-        print(f"[JOINT 1] j1_rad {j1_rad:.4f} xy ({x:.4f},{y:.4f}), hand_rad: {hand_rad:.4f}, rad_delta: {rad_delta:.4f}, rad_delta_clamped: {rad_delta_clamped:.4f}, target_rad {target_rad:.4f} final_target_rad: {final_target_rad:.4f}")
+        print(f"[JOINT 1] j1_rad {j1_rad:.4f} xy ({x:.4f},{y:.4f}), hand_rad: {hand_rad:.4f}, rad_delta: {rad_delta:.4f}, rad_delta_clamped: {rad_delta_clamped:.4f}, target_rad {target_rad:.4f} final_target_rad: {final_target_rad:.4f}",
+        file=sys.stderr)
         return final_target_rad        
 
 
@@ -114,8 +122,8 @@ class ArmControl(object):
         rad_delta = hand_rad - j3_rad
         rad_delta_clamped = self.clamp(rad_delta, -JOINT_3_MAX_MOVEMENT, JOINT_3_MAX_MOVEMENT)
         target_rad = j3_rad + rad_delta_clamped
-        print(f"[JOINT 3] j3_rad {j3_rad:.4f} xy ({x:.4f},{y:.4f}), hand_rad: {hand_rad:.4f}, rad_delta: {rad_delta:.4f}, rad_delta_clamped: {rad_delta_clamped:.4f}, target_rad {target_rad:.4f} ")
-        return target_rad
+        print(f"[JOINT 3] j3_rad {j3_rad:.4f} distance {distance_from_origin}, hand_rad: {hand_rad:.4f}, rad_delta: {rad_delta:.4f}, rad_delta_clamped: {rad_delta_clamped:.4f}, target_rad {target_rad:.4f} ")
+        return -target_rad
     
     def _get_joint_4(self, q2):
         # We dont need this? (inverse of the tilt, but the elbow makes this more complicated)
@@ -132,19 +140,18 @@ class ArmControl(object):
             return
         self.last_action = now
         curr_j1, curr_j2, curr_j3, curr_j4 = self.move_group_arm.get_current_joint_values()
-        print(f"Current Location {curr_j1:.4f},{curr_j2:.4f}, {curr_j3:.4f}, {curr_j4:.4f}")
-
+        print(f"Current Location {curr_j1:.4f},{curr_j2:.4f}, {curr_j3:.4f}, {curr_j4:.4f}", file=sys.stderr)
+        q1, q2, q3, q4 = 0,0,0,0
         q1 = self._get_joint_1(x, y)
-        q2, q3, q4 = 0, 0, 0
-        # q2 = self._get_joint_2(z)
-        # q3 = self._get_joint_3(x, y)
+        q2 = self._get_joint_2(z)
+        q3 = self._get_joint_3(x, y)
         # q4 = self._get_joint_4(q2)
 
-        print(f"Moving arm to: q1: {q1}, q2: {q2}, q3: {q3}, q4: {q4}")
-
+        print(f"Moving arm to: q1: {q1}, q2: {q2}, q3: {q3}, q4: {q4}", file=sys.stderr)
+        if q1 == q2 == q3 == 0:
+            return
         new_pos = [q1, q2, q3, q4]
-        self.move_group_arm.set_joint_value_target(new_pos)
-        success = self.move_group_arm.go(wait=True)
+        success = self.move_group_arm.go(new_pos, wait=False)
         self.move_group_arm.stop()
 
         if not success:
@@ -157,7 +164,7 @@ class ArmControl(object):
         is_open = data.data
         if is_open != self.gripper_open:
             if is_open:
-                self.move_group_gripper.go([0, 0], wait=True)  # Open gripper
+                self.move_group_gripper.go([0.01, 0.01], wait=True)  # Open gripper
             else:
                 self.move_group_gripper.go([-0.01, -0.01], wait=True)  # Close gripper
             self.move_group_gripper.stop()

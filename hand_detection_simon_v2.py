@@ -175,7 +175,7 @@ class HandTracker:
                     for hand_landmarks in results.multi_hand_landmarks:
                        
                         # Draw the hand landmarks
-                        mp_draw.draw_landmarks(color_image_rgb, hand_landmarks, mp_hands.HAND_CONNECTIONS)
+                        # mp_draw.draw_landmarks(color_image_rgb, hand_landmarks, mp_hands.HAND_CONNECTIONS)
 
                         # Calculate bounding box
                         bbox = self.calculate_hand_bbox(hand_landmarks)
