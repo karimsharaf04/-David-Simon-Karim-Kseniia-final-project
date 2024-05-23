@@ -1,18 +1,21 @@
 # Intro Robotics Final Project
 ### Group members: David Suh, Simon Mahns, Karim Sharaf, Kseniia Korotenko
 
-### Project Description:
-We are using a depth camera and hand gesture recognition to teach the turtlebots to play a game that involves
-dragging and dropping tubes according to commands that human players execute via hand gestures. The robot that
-gains more points by knocking over tubes (+1 point) and dragging and dropping tubes in the goal area (+2 points)
-in a limited time wins. Of course, it is also possible to play with just one player, seeing how many points you can score in a limited time. \
+## Description:
+We use a depth camera, computer vision, custom neural nets, and inverse kinematics to introduce a novel way of controlling the turtlebot arm - open air hand imitation.
+
+To demonstrate the functionality of this method we created a game where players attempt to control the hand to drag and drop tubes with their hand. The rules are as follows:
+- knocking over tubes (+1 point) 
+- dragging and dropping tubes in the goal area (+2 points)
+
+The player who accumulates the most points in 2 minutes wins.
 
 This project is exciting because we combined two areas of interest: \
 — hand gesture recognition (computer vision) using ML \
 — robot arm manipulation \
 The result is an HCI/HRI project that augments the capabilities of the robot.
 
-### System Architecture:
+## System Architecture:
 Describe in detail the robotics algorithm you implemented and each major component of your project, highlight what pieces of code contribute to these main components \
 **Computer Vision Component: Hand Gesture Detection** \
 This code is in the file `hand_detection.py`. The rospy node is called `hand_tracker`. First, in this file, load the CNN model. We also do some logistics such as initializing MediaPipe and the RealSense depth camera. We also set the white balance to make sure the image is processed correctly. When the `hand_tracker` node runs, it gets an image from the realsense camera, draws hand landmarks, calculates bounding box for the hand, crops the image, and preprocesses the resulting image of a hand to be fed to the model. (The preprocessing imolves some resizing, format change, normalization etc.) Then we get the model's prediction, and publish the hand position and state (open/closed) as based on this prediction. Then we display the image for debugging. \
@@ -32,17 +35,19 @@ Describe how to run your code, e.g., step-by-step instructions on what commands 
 We created a launch file `final.launch`. So it is enough to run: `roslaunch final_project final.launch`. This launch file launches OpenMANIPULATOR Bringup, MoveIt configuration for the robot arm, and runs the hand detection and arm motion nodes. (The data stream from the depth camera is set up in the hand detection node.) \
 The second step is for a human to position themselves under the depth camera and operate the robot using hand gestures! If we want two (or more) robots to compete, we need two (or more) identical setups.\
 
-### Challenges, Future Work, and Takeaways:
+## Challenges, Future Work, and Takeaways:
 
-**Challenges:** \
+### Challenges:
 Perhaps the biggest challenge was learning to work with the MoveIt framework. While we started out with the inverse kinematics theory from class slides, we quickly realized that the actual limitations of the robot arm, and the capabilities of the MoveIt API, mean that we have to adjust our plans. We ended up implementing a simpler model than we originally planned, making sure that each joint corresponds to one specific direction of movement. \
 It is also interesting that our ML model for hand gesture detention is homebrew! Adjusting the parameters to make this model work and doing adequate preprocessing was another challenge.
 
-**Future Work:** \
-If we had more time, we would definitely want to try and implement this project without MoveIt. We would consider controlling the arm's servos by programming their positions "raw", without the MoveIt API. Plus, instead of performing the robot arm position computation on a PC, we would consider doing it directly on the robot's raspberry pi in order to eliminate latency limitations.
+### Future Work:
+If we had more time, we would definitely want to try and implement this project without the MoveIt library. We would consider controlling the arm's servos by programming their positions "raw", without the MoveIt API. Plus, instead of performing the robot arm position computation on a PC, we would consider doing it directly on the robot's raspberry pi in order to eliminate latency limitations. 
 
-**Takeaways:** \
-— Learning how to use a depth camera and what we can accomplish with it! \
-— Training and using a homebrew CNN model for hand gesture detection. \
-— Learning how to implement somewhat complex inverse kinematics in a real-life project, and what practical limitations (latency, robot's arm structure) and possibilities exist.
+### Takeaways:
+- Learning how to use a depth camera and what we can accomplish with it!
+- Training and using a homebrew CNN model for hand gesture detection.
+- Learning how to implement somewhat complex inverse kinematics in a real-life project, and what practical limitations (latency, robot's arm structure) exist.
+- How to train a CNN model from scratch, neural net architecture. How to create a good training dataset
+
 
