@@ -5,7 +5,7 @@
 We are using a depth camera and hand gesture recognition to teach the turtlebots to play a game that involves
 dragging and dropping tubes according to commands that human players execute via hand gestures. The robot that
 gains more points by knocking over tubes (+1 point) and dragging and dropping tubes in the goal area (+2 points)
-in a limited time wins. \
+in a limited time wins. Of course, it is also possible to play with just one player, seeing how many points you can score in a limited time. \
 
 This project is exciting because we combined two areas of interest: \
 — hand gesture recognition (computer vision) using ML \
@@ -36,15 +36,14 @@ The second step is for a human to position themselves under the depth camera and
 ### Challenges, Future Work, and Takeaways:
 
 **Challenges:** \
-Perhaps the biggest challenge was learning to work with the MoveIt framework. While we started out with the inverse kinematics theory from class slides, we quickly realized that the actual limitations of the robot arm, and what is given to us in the MoveIt API, mean that we have to adjust our plans. We ended up implementing a simpler model than we originally planned, making sure that each joint corresponds to one specific direction of movement. \
-It is also interesting that our ML model for hand gesture detention is homebrew! Adjusting the parameters to make this model work was another challenge.
+Perhaps the biggest challenge was learning to work with the MoveIt framework. While we started out with the inverse kinematics theory from class slides, we quickly realized that the actual limitations of the robot arm, and the capabilities of the MoveIt API, mean that we have to adjust our plans. We ended up implementing a simpler model than we originally planned, making sure that each joint corresponds to one specific direction of movement. \
+It is also interesting that our ML model for hand gesture detention is homebrew! Adjusting the parameters to make this model work and doing adequate preprocessing was another challenge.
 
 **Future Work:** \
-— No moveit. Servo controiller -> raw programming
-— Do on the pi directly
+If we had more time, we would definitely want to try and implement this project without MoveIt. We would consider controlling the arm's servos by programming their positions "raw", without the MoveIt API. Plus, instead of performing the robot arm position computation on a PC, we would consider doing it directly on the robot's raspberry pi in order to eliminate latency limitations.
 
 **Takeaways:** \
 — Learning how to use a depth camera and what we can accomplish with it! \
-— learning how to
-— Inverse kinematics
+— Training and using a homebrew CNN model for hand gesture detection. \
+— Learning how to implement somewhat complex inverse kinematics in a real-life project, and what practical limitations (latency, robot's arm structure) and possibilities exist. \
 
