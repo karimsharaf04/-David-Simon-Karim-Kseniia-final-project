@@ -6,7 +6,7 @@
     <include file="$(find turtlebot3_manipulation_moveit_config)/launch/move_group.launch"/>
 
     <!-- Hand Detection Node -->
-    <node name="hand_detection" pkg="final_project" type="hand_detection_simon_v2.py" output="screen">
+    <node name="hand_detection" pkg="final_project" type="hand_detection.py" output="screen">
     </node>
 
     <!-- Arm Motion Node -->
