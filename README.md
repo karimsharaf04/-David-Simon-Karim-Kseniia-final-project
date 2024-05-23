@@ -26,8 +26,7 @@ As for the helper functions: \
 ### ROS Node Diagram:
 Please include a visual diagram representing all of the ROS nodes, ROS topics, and publisher/subscriber connections present in your final project. \
 We have two nodes: `hand_tracker` in `hand_detection.py` and `arm_control` in `arm_motion.py`. `hand_tracker` publishes to ros topics `hand_center` (hand position, PointStamped message) and `hand open`(flag which determines whether the hand should be open, Bool message). The node `arm_control` is subscribed to these topics. \
-![Ros Node Diagram](<Screenshot 2024-05-23 at 1.09.33 PM-1.png>)
-
+![Ros Node Diagram](<Screenshot 2024-05-23 at 2.18.48 PM.png>)
 ### Execution:
 Describe how to run your code, e.g., step-by-step instructions on what commands to run in each terminal window to execute your project code. \
 We created a launch file `final.launch`. So it is enough to run: `roslaunch final_project final.launch`. This launch file launches OpenMANIPULATOR Bringup, MoveIt configuration for the robot arm, and runs the hand detection and arm motion nodes. (The data stream from the depth camera is set up in the hand detection node.) \
@@ -45,5 +44,5 @@ If we had more time, we would definitely want to try and implement this project 
 **Takeaways:** \
 — Learning how to use a depth camera and what we can accomplish with it! \
 — Training and using a homebrew CNN model for hand gesture detection. \
-— Learning how to implement somewhat complex inverse kinematics in a real-life project, and what practical limitations (latency, robot's arm structure) and possibilities exist. \
+— Learning how to implement somewhat complex inverse kinematics in a real-life project, and what practical limitations (latency, robot's arm structure) and possibilities exist.
 
