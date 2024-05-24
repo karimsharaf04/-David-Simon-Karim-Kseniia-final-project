@@ -72,6 +72,8 @@ It is also interesting that our ML model for hand gesture detention is home grow
 Some of images captured on the way<br/>
 <img src="img/data.png" alt="drawing" width="100%"/>
 
+Driving a robot with just your hand is very hard.
+
 ### Future Work:
 If we had more time, we would definitely want to try and implement this project without the MoveIt library. We would consider controlling the arm's servos by programming their positions "raw", without the MoveIt API. Plus, instead of performing the robot arm position computation on a PC, we would consider doing it directly on the robot's raspberry pi in order to eliminate latency limitations. 
 
